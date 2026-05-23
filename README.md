@@ -59,6 +59,24 @@ Text-to-video generation has advanced rapidly, but existing methods typically ou
 
 ---
 
+## 🎬 Qualitative Results
+
+<p align="center">
+  <img src="assets/results/nZx3eQ9ASsE-Scene-0138_vis.gif" width="100%" alt="LayerT2V qualitative result 1">
+  <br>
+  <img src="assets/results/0oqDrVK5GtE-Scene-0007_vis.gif" width="100%" alt="LayerT2V qualitative result 2">
+  <br>
+  <img src="assets/results/OGdpT2LPU1Q-Scene-0057_vis.gif" width="100%" alt="LayerT2V qualitative result 3">
+  <br>
+  <img src="assets/results/--OxZKN4QLI-Scene-0013_vis.gif" width="100%" alt="LayerT2V qualitative result 4">
+  <br>
+  <img src="assets/results/JijKSE5OPwI-Scene-1770_vis.gif" width="100%" alt="LayerT2V qualitative result 5">
+  <br>
+  <img src="assets/results/k1FXU2Q3ZJ0-Scene-0019_vis.gif" width="100%" alt="LayerT2V qualitative result 6">
+</p>
+
+---
+
 ## 🔥 News
 
 - **[2026.05]** LayerT2V is accepted to ICML.
