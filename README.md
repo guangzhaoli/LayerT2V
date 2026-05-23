@@ -1,112 +1,172 @@
-# LayerT2V: A Unified Multi-Layer Video Generation Framework
+<p align="center">
+  <h1 align="center">LayerT2V: A Unified Multi-Layer Video Generation Framework</h1>
+</p>
 
-<div align="center">
+<p align="center">
+  <strong>Guangzhao Li<sup>*</sup></strong>
+  ·
+  <strong>Kangrui Cen<sup>*</sup></strong>
+  ·
+  <strong>Baixuan Zhao</strong>
+  ·
+  <strong>Yi Xin</strong>
+  ·
+  <strong>Siqi Luo</strong>
+  ·
+  <strong>Guangtao Zhai</strong>
+  ·
+  <strong>Lei Zhang</strong>
+  ·
+  <strong>Xiaohong Liu</strong>
+  <br>
+  <br>
+  <a href="https://arxiv.org/abs/2508.04228"><img src="https://img.shields.io/badge/arXiv-2508.04228-b31b1b.svg" alt="arXiv"></a>
+  <a href="https://layert2v.github.io/"><img src="https://img.shields.io/badge/Project_Page-LayerT2V-blue" alt="Project Page"></a>
+  <a href="https://arxiv.org/abs/2508.04228"><img src="https://img.shields.io/badge/Paper-ICML-brightgreen" alt="Paper"></a>
+  <a href="LICENSE.txt"><img src="https://img.shields.io/badge/License-Apache--2.0-green" alt="License"></a>
+</p>
 
-**Guangzhao Li, Kangrui Cen, Baixuan Zhao, Yi Xin, Siqi Luo, Guangtao Zhai, Lei Zhang, Xiaohong Liu**
+<p align="center">
+  <img src="assets/pipe.png" width="100%" alt="LayerT2V pipeline">
+  <br>
+  <em>LayerT2V jointly generates a composited video, background layer, foreground RGB layers, and alpha mattes in a unified video generation trajectory.</em>
+</p>
 
-[![arXiv](https://img.shields.io/badge/arXiv-2508.04228-b31b1b.svg)](https://arxiv.org/abs/2508.04228)
-[![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://layert2v.github.io/)
-[![Paper](https://img.shields.io/badge/Paper-ICML-brightgreen.svg)](https://arxiv.org/abs/2508.04228)
-
-</div>
+---
 
 This is the official repository for **LayerT2V: A Unified Multi-Layer Video Generation Framework**.
 
-<div align="center">
-  <img src="assets/pipe.png" alt="LayerT2V pipeline" width="95%">
-</div>
+## Abstract
+
+**TL;DR:** LayerT2V is a unified layer-aware text-to-video generation framework that produces editable multi-layer video representations in a single inference pass.
+
+<details>
+<summary>Click to read the full abstract</summary>
+
+LayerT2V targets layer-aware video generation, where the model generates not only the final composited video but also an independent background layer, multiple foreground RGB layers, and corresponding alpha mattes. It serializes multiple layer representations along the temporal dimension and jointly models them on a shared generation trajectory, improving semantic alignment, temporal coherence, and cross-layer consistency.
+
+To reduce layer ambiguity and conditional leakage, LayerT2V introduces layer-aware conditioning modules, including **LayerAdaLN** and layer-aware cross-attention modulation. The training pipeline contains alpha mask VAE adaptation, joint multi-layer learning, and multi-foreground extension. We also introduce **VidLayer**, a large-scale dataset for multi-layer video generation.
+
+</details>
+
+---
+
+## Key Features
+
+- **Unified multi-layer generation:** Produces the full video, background, foreground RGB layers, and alpha mattes in one inference pass.
+- **Layer-aware diffusion modeling:** Serializes layer representations along the temporal dimension and models them jointly.
+- **Layer-specific conditioning:** Uses LayerAdaLN and layer-aware cross-attention modulation to reduce layer ambiguity.
+- **Editable video representation:** Generates explicit foreground/background layers for downstream editing and compositing.
+- **VidLayer dataset:** Introduces a large-scale dataset designed for multi-layer video generation.
+
+---
 
 ## News
 
-- **[2026.05]** Our paper has been accepted. Code, checkpoints, and dataset resources are being prepared for release.
+- **[2026.05]** LayerT2V is accepted to ICML.
 - **[2026.02]** We updated the arXiv version of LayerT2V.
 - **[2025.08]** We released the LayerT2V preprint on arXiv.
 
-## Overview
+---
 
-**LayerT2V** is a unified multi-layer video generation framework for layer-aware text-to-video synthesis. Instead of generating only a final composited video, LayerT2V produces an editable layered representation in a single inference pass, including:
+## Todo
 
-- the full composited video,
-- an independent background layer,
-- multiple foreground RGB layers,
-- corresponding foreground alpha mattes.
+- [x] Release the initial codebase.
+- [x] Release the project page.
+- [x] Release the arXiv paper.
+- [ ] Release pretrained LayerT2V checkpoints.
+- [ ] Release VidLayer dataset resources.
+- [ ] Add detailed evaluation scripts and instructions.
 
-The framework serializes multiple layer representations along the temporal dimension and models them jointly with a shared video generation trajectory. This design improves semantic alignment, temporal coherence, and cross-layer consistency while keeping the generation process unified.
+---
 
-LayerT2V further introduces layer-aware conditioning modules, including **LayerAdaLN** and layer-aware cross-attention modulation, to reduce layer ambiguity and conditional leakage. The training pipeline contains three stages: alpha mask VAE adaptation, joint multi-layer learning, and multi-foreground extension.
+## Getting Started
 
-We also introduce **VidLayer**, a large-scale dataset for multi-layer video generation.
-
-## Release Status
-
-| Component | Status |
-| --- | --- |
-| Paper | ICML |
-| Project page | Available |
-| Source code | Coming soon |
-| Pretrained checkpoints | Coming soon |
-| VidLayer dataset | Coming soon |
-| Inference scripts | Coming soon |
-| Training scripts | Coming soon |
-| Evaluation scripts | Coming soon |
-
-We are cleaning the implementation, organizing model weights, and preparing dataset release materials. Please watch this repository for updates.
-
-## Installation
-
-Installation instructions will be released together with the source code.
+### Installation
 
 ```bash
 git clone https://github.com/guangzhaoli/LayerT2V.git
 cd LayerT2V
+
+conda create -n layert2v python=3.10
+conda activate layert2v
+
+pip install -r requirements.txt
 ```
 
-The public release will include environment files, dependency versions, and setup instructions.
+For training, install the training dependencies as needed:
 
-## Inference
+```bash
+pip install -r requirements_training.txt
+```
 
-Inference code and pretrained checkpoints will be released soon.
+### Model Preparation
 
-The release will include:
+LayerT2V builds on Wan2.1 video generation components. Prepare the required Wan2.1 base checkpoint locally and pass its path through `--model_path`.
 
-- checkpoint download instructions,
-- text-to-video generation examples,
-- multi-layer generation examples,
-- alpha matte and foreground extraction examples,
-- visualization utilities for generated layers.
+Pretrained LayerT2V checkpoints and VidLayer dataset release links will be added after release preparation is complete.
 
-## Dataset
+---
 
-The VidLayer dataset will be released after final organization and license checks.
+## How to Use
 
-The dataset release will include:
+### Inference
 
-- download instructions,
-- data format documentation,
-- preprocessing scripts,
-- training and evaluation splits.
+Use the provided inference script for layered video generation:
 
-## Training
+```bash
+bash scripts/run_inference.sh \
+  --model_path /path/to/Wan2.1-T2V-1.3B \
+  --lora_path /path/to/layert2v/checkpoint \
+  --prompt "A ship sails on the ocean under blue sky." \
+  --fg_prompt "A ship." \
+  --bg_prompt "A vast ocean under blue sky." \
+  --output_dir outputs/demo
+```
 
-Training scripts and configuration files will be released with the source code.
+Useful options include:
 
-The release will include scripts for the main training stages:
+- `--mask_mode`: mask processing mode, such as `vae`, `downsample`, `vae-project`, `mask-vae-project`, or `mask-vae-joint`.
+- `--mask_vae_path`: MaskVAE checkpoint path for MaskVAE-based modes.
+- `--mask_vae_proj_path`: projection checkpoint path for projection-based modes.
+- `--use_4d_rope` / `--no_4d_rope`: switch between 4D layer-temporal-spatial RoPE and original 3D RoPE.
+- `--width`, `--height`, `--frames`, `--steps`, `--seed`: generation controls.
 
-- alpha mask VAE adaptation,
-- joint multi-layer learning,
-- multi-foreground extension.
+### Training
 
-## Evaluation
+Use the training script with a config file, Wan2.1 checkpoint, and dataset root:
 
-Evaluation scripts will be released with the source code.
+```bash
+bash scripts/run_train.sh \
+  --config training/configs/train.yaml \
+  --num_gpus 4 \
+  --model_path /path/to/Wan2.1-T2V-1.3B \
+  --data_root /path/to/VidLayer \
+  --output_dir outputs/train
+```
 
-The release will include commands and instructions for evaluating:
+The training code supports the main LayerT2V stages, including alpha mask VAE adaptation, joint multi-layer learning, and multi-foreground extension.
 
-- visual fidelity,
-- temporal consistency,
-- cross-layer coherence,
-- alpha matte quality,
-- foreground-background consistency.
+---
+
+## Repository Structure
+
+```text
+LayerT2V
+├── generate.py
+├── inference_res.py
+├── scripts/
+├── training/
+├── vis_scripts/
+└── wan/
+```
+
+- `wan/`: Wan2.1-based generation modules and LayerT2V inference implementation.
+- `training/`: training datasets, configs, and training entrypoints.
+- `scripts/`: launch scripts for inference, training, batch inference, and experiment utilities.
+- `vis_scripts/`: visualization utilities for generated layer outputs.
+
+---
 
 ## Citation
 
@@ -127,9 +187,11 @@ If you find LayerT2V useful for your research, please cite our paper:
 
 The citation will be updated after the official proceedings information becomes available.
 
+---
+
 ## Acknowledgments
 
-We thank everyone who supports this project. More details will be added together with the full code release.
+We thank everyone who supports this project. More details will be added together with future releases.
 
 ## Contact
 
