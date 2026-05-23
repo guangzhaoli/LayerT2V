@@ -188,7 +188,9 @@ The citation will be updated after the official proceedings information becomes 
 
 ## 🙏 Acknowledgments
 
-We thank everyone who supports this project. More details will be added together with future releases.
+LayerT2V is implemented based on [Wan2.1](https://github.com/Wan-Video/Wan2.1). We sincerely thank the Wan2.1 team for their excellent open-source video generation framework.
+
+We also thank everyone who supports this project. More details will be added together with future releases.
 
 ## 📬 Contact
 
