@@ -36,22 +36,20 @@
 
 This is the official repository for **LayerT2V: A Unified Multi-Layer Video Generation Framework**.
 
-## Abstract
+## 📄 Abstract
 
-**TL;DR:** LayerT2V is a unified layer-aware text-to-video generation framework that produces editable multi-layer video representations in a single inference pass.
+**TL;DR:** LayerT2V generates an editable layered video representation in one inference pass, including the full video, background, foreground RGB layers, and alpha mattes.
 
 <details>
 <summary>Click to read the full abstract</summary>
 
-LayerT2V targets layer-aware video generation, where the model generates not only the final composited video but also an independent background layer, multiple foreground RGB layers, and corresponding alpha mattes. It serializes multiple layer representations along the temporal dimension and jointly models them on a shared generation trajectory, improving semantic alignment, temporal coherence, and cross-layer consistency.
-
-To reduce layer ambiguity and conditional leakage, LayerT2V introduces layer-aware conditioning modules, including **LayerAdaLN** and layer-aware cross-attention modulation. The training pipeline contains alpha mask VAE adaptation, joint multi-layer learning, and multi-foreground extension. We also introduce **VidLayer**, a large-scale dataset for multi-layer video generation.
+Text-to-video generation has advanced rapidly, but existing methods typically output only the final composited video and lack editable layered representations, limiting their use in professional workflows. We propose **LayerT2V**, a unified multi-layer video generation framework that produces multiple semantically consistent outputs in a single inference pass: the full video, an independent background layer, and multiple foreground RGB layers with corresponding alpha mattes. Our key insight is that recent video generation backbones use high compression in both time and space, enabling us to serialize multiple layer representations along the temporal dimension and jointly model them on a shared generation trajectory. This turns cross-layer consistency into an intrinsic objective, improving semantic alignment and temporal coherence. To mitigate layer ambiguity and conditional leakage, we augment a shared DiT backbone with LayerAdaLN and layer-aware cross-attention modulation. LayerT2V is trained in three stages: alpha mask VAE adaptation, joint multi-layer learning, and multi-foreground extension. We also introduce **VidLayer**, the first large-scale dataset for multi-layer video generation. Extensive experiments demonstrate that LayerT2V substantially outperforms prior methods in visual fidelity, temporal consistency, and cross-layer coherence.
 
 </details>
 
 ---
 
-## Key Features
+## 🌟 Key Features
 
 - **Unified multi-layer generation:** Produces the full video, background, foreground RGB layers, and alpha mattes in one inference pass.
 - **Layer-aware diffusion modeling:** Serializes layer representations along the temporal dimension and models them jointly.
@@ -61,7 +59,7 @@ To reduce layer ambiguity and conditional leakage, LayerT2V introduces layer-awa
 
 ---
 
-## News
+## 🔥 News
 
 - **[2026.05]** LayerT2V is accepted to ICML.
 - **[2026.02]** We updated the arXiv version of LayerT2V.
@@ -69,7 +67,7 @@ To reduce layer ambiguity and conditional leakage, LayerT2V introduces layer-awa
 
 ---
 
-## Todo
+## 📑 Todo
 
 - [x] Release the initial codebase.
 - [x] Release the project page.
@@ -80,9 +78,9 @@ To reduce layer ambiguity and conditional leakage, LayerT2V introduces layer-awa
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
-### Installation
+### ⚙️ Installation
 
 ```bash
 git clone https://github.com/guangzhaoli/LayerT2V.git
@@ -100,7 +98,7 @@ For training, install the training dependencies as needed:
 pip install -r requirements_training.txt
 ```
 
-### Model Preparation
+### 📦 Model Preparation
 
 LayerT2V builds on Wan2.1 video generation components. Prepare the required Wan2.1 base checkpoint locally and pass its path through `--model_path`.
 
@@ -108,9 +106,9 @@ Pretrained LayerT2V checkpoints and VidLayer dataset release links will be added
 
 ---
 
-## How to Use
+## 🎬 How to Use
 
-### Inference
+### 🧪 Inference
 
 Use the provided inference script for layered video generation:
 
@@ -132,7 +130,7 @@ Useful options include:
 - `--use_4d_rope` / `--no_4d_rope`: switch between 4D layer-temporal-spatial RoPE and original 3D RoPE.
 - `--width`, `--height`, `--frames`, `--steps`, `--seed`: generation controls.
 
-### Training
+### 🏋️ Training
 
 Use the training script with a config file, Wan2.1 checkpoint, and dataset root:
 
@@ -149,7 +147,7 @@ The training code supports the main LayerT2V stages, including alpha mask VAE ad
 
 ---
 
-## Repository Structure
+## 🗂️ Repository Structure
 
 ```text
 LayerT2V
@@ -168,7 +166,7 @@ LayerT2V
 
 ---
 
-## Citation
+## 📝 Citation
 
 If you find LayerT2V useful for your research, please cite our paper:
 
@@ -189,10 +187,10 @@ The citation will be updated after the official proceedings information becomes 
 
 ---
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 We thank everyone who supports this project. More details will be added together with future releases.
 
-## Contact
+## 📬 Contact
 
 For questions, please open an issue in this repository.
