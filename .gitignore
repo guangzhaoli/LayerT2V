@@ -1,0 +1,62 @@
+# Python
+*.py[cod]
+__pycache__/
+*.pkl
+
+# Media files
+*.jpeg
+*.gif
+*.bmp
+*.mp4
+*.mov
+*.mkv
+
+# Model weights
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Logs and outputs
+*.log
+outputs/
+logs/
+checkpoints/
+
+# Archives
+*.zip
+*.whl
+
+# Misc
+*.backup
+*.html
+*.pdf
+cache/
+storage/
+samples/
+
+# OS files
+.DS_Store
+*DS_Store
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Model directories
+google/
+Wan2.1-T2V-14B/
+Wan2.1-T2V-1.3B/
+Wan2.1-I2V-14B-480P/
+Wan2.1-I2V-14B-720P/
+
+# Lock files
+poetry.lock
+
+# Claude Code
+.claude/
+
+
+outputs/

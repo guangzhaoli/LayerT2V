@@ -1,0 +1,31 @@
+# Training requirements for Layered Video Generation
+# Copyright 2024-2025 LayerT2V Authors. All rights reserved.
+
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Diffusion/training utilities
+diffusers>=0.25.0
+transformers>=4.36.0
+accelerate>=0.25.0
+peft>=0.7.0
+
+# Attention (required by `wan/modules/attention.py`)
+# flash_attn
+
+# Video loading
+decord>=0.6.0
+
+# Configuration
+omegaconf>=2.3.0
+easydict
+
+# Logging
+tensorboard
+tqdm
+wandb  # For experiment tracking with offline mode support
+
+# Utilities
+einops
+safetensors

@@ -1,0 +1,90 @@
+# Mask Downsample mode configuration
+# Copyright 2024-2025 LayerT2V Authors. All rights reserved.
+#
+# mask_mode: "downsample" - Direct spatial downsampling + channel repeat
+# Better edge preservation than VAE encoding for binary/sharp masks
+#
+# Usage:
+#   ./run_train.sh --config training/configs/mask_downsample.yaml
+
+# =============================================================================
+# Model paths
+# =============================================================================
+model_path: "/inspire/hdd/project/multimodal-discrete-diffusion/liuxiaohong-25080/guangzhaoli/models/wan-2.1-1.3B"
+vae_path: null
+t5_path: null
+t5_tokenizer: "/inspire/hdd/project/multimodal-discrete-diffusion/liuxiaohong-25080/guangzhaoli/models/wan-2.1-1.3B/google/umt5-xxl"
+
+# =============================================================================
+# LoRA configuration
+# =============================================================================
+lora_rank: 196
+lora_alpha: 392
+use_all_linear: true
+
+# =============================================================================
+# Layer position offset mode
+# =============================================================================
+layer_offset_mode: "learnable"
+
+# =============================================================================
+# 4D RoPE configuration
+# =============================================================================
+use_4d_rope: false
+rope_dim_ratios: "8,42,40,38"
+
+# =============================================================================
+# Data configuration
+# =============================================================================
+data_root: "/inspire/hdd/project/multimodal-discrete-diffusion/liuxiaohong-25080/guangzhaoli/layert2v_new/test_data"
+resolution_h: 384
+resolution_w: 672
+num_frames: 9
+fps: 8
+frame_sampling: "continuous"
+
+# =============================================================================
+# Training configuration
+# =============================================================================
+batch_size: 1
+gradient_accumulation_steps: 4
+learning_rate: 1.0e-4
+weight_decay: 0.01
+max_grad_norm: 1.0
+warmup_steps: 500
+max_steps: -1
+num_epochs: 30000
+
+# =============================================================================
+# EMA
+# =============================================================================
+use_ema: true
+ema_decay: 0.9999
+
+# =============================================================================
+# Memory optimization
+# =============================================================================
+gradient_checkpointing: true
+mixed_precision: "bf16"
+
+# =============================================================================
+# Logging and saving
+# =============================================================================
+log_steps: 10
+save_steps: 1000
+validation_steps: 500
+output_dir: "./outputs/layered-video"
+logging_dir: "./logs/layered-video"
+run_name: "layered-video-lora"
+
+# =============================================================================
+# Other
+# =============================================================================
+seed: 42
+num_workers: 4
+resume_from: null
+
+# =============================================================================
+# Mask mode specific settings
+# =============================================================================
+mask_mode: "downsample"

@@ -1,0 +1,22 @@
+# Accelerate configuration for multi-GPU training
+# Copyright 2024-2025 LayerT2V Authors. All rights reserved.
+#
+# Usage:
+#   accelerate launch --config_file training/configs/accelerate_config.yaml \
+#       training/train_layered.py --config training/configs/default.yaml
+
+compute_environment: LOCAL_MACHINE
+distributed_type: MULTI_GPU
+downcast_bf16: 'no'
+gpu_ids: all
+machine_rank: 0
+main_training_function: main
+mixed_precision: bf16
+num_machines: 1
+num_processes: 8  # Number of GPUs to use
+rdzv_backend: static
+same_network: true
+tpu_env: []
+tpu_use_cluster: false
+tpu_use_sudo: false
+use_cpu: false

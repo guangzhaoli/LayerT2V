@@ -1,0 +1,116 @@
+# Mask VAE-LoRA mode configuration (Stage 2)
+# Copyright 2024-2025 LayerT2V Authors. All rights reserved.
+#
+# mask_mode: "vae-lora" - VAE encoding + project-in + decoder LoRA (frozen)
+# Stage 1: train_mask_vae_lora.py
+# Stage 2: train_layered.py with mask_mode=vae-lora
+
+# =============================================================================
+# Model paths
+# =============================================================================
+model_path: "/home/notebook/data/group/ckr/ckpt/Wan2.1-T2V-1.3B"
+vae_path: null
+t5_path: null
+t5_tokenizer: "/home/notebook/data/group/ckr/ckpt/Wan2.1-T2V-1.3B/google/umt5-xxl"
+
+# =============================================================================
+# LoRA configuration
+# =============================================================================
+lora_rank: 128
+lora_alpha: 128.0
+use_all_linear: true
+
+# =============================================================================
+# Layer position offset mode
+# =============================================================================
+layer_offset_mode: "learnable"
+
+# =============================================================================
+# 4D RoPE configuration
+# =============================================================================
+use_4d_rope: false
+rope_dim_ratios: "8,42,40,38"
+
+# =============================================================================
+# Data configuration
+# =============================================================================
+# data_root: "/path/to/dataset"
+jsonl_path: "/home/notebook/data/group/ckr/Data/layer/layert2v_backup0109/test_data/anno_1obj_0012_0450.jsonl"
+resolution_h: 192
+resolution_w: 336
+num_frames: 9
+fps: 8
+frame_sampling: "continuous"
+
+# =============================================================================
+# Training configuration
+# =============================================================================
+batch_size: 4
+gradient_accumulation_steps: 4
+learning_rate: 1.0e-4
+weight_decay: 0.01
+max_grad_norm: 1.0
+warmup_steps: 500
+max_steps: -1
+num_epochs: 30000
+
+# =============================================================================
+# EMA
+# =============================================================================
+use_ema: true
+ema_decay: 0.9999
+
+# =============================================================================
+# Memory optimization
+# =============================================================================
+gradient_checkpointing: true
+mixed_precision: "bf16"
+
+# =============================================================================
+# Logging and saving
+# =============================================================================
+log_steps: 10
+save_steps: 500
+validation_steps: 99999999
+output_dir: "./outputs/layered-video-16ksample"
+logging_dir: "./logs/layered-video-16ksample"
+run_name: "vae_lora_stage2_vae_16ksample"
+
+# =============================================================================
+# Other
+# =============================================================================
+seed: 42
+num_workers: 4
+resume_from: null
+
+# =============================================================================
+# Mask mode specific settings
+# =============================================================================
+mask_mode: "vae-lora"
+mask_vae_lora_path: "/home/notebook/data/group/ckr/Data/layer/layert2v_0116/outputs/mask_vae_lora_pretrained/mask_vae_lora.pt"
+
+# =============================================================================
+# Layer separation constraints
+# =============================================================================
+# consistency_weight: Reconstruction consistency loss (full = fg + bg*(1-mask))
+#   Suggested range: 0.1-0.5
+# mutual_exclusivity_weight: Mutual exclusivity loss (fg outside mask sparse)
+#   Suggested range: 0.1-0.3
+consistency_weight: 0.1
+mutual_exclusivity_weight: 0.0
+
+# =============================================================================
+# Mask reconstruction loss (vae-lora mode)
+# =============================================================================
+# mask_lora_rec_weight: Weight for mask reconstruction loss using LoRA decoder.
+#   Set > 0 to enable. Suggested range: 0.1-0.5
+mask_lora_rec_weight: 0.1
+
+# =============================================================================
+# Wandb configuration
+# =============================================================================
+# GPU 集群无法联网时使用离线模式，训练完成后在 CPU 集群同步
+use_wandb: true                    # Enable Wandb logging
+wandb_offline: true                # Offline mode for GPU clusters without internet
+wandb_project: "vae_lora_stage2_vae"          # Wandb project name
+wandb_entity: null                 # Wandb entity (team or username), null for personal

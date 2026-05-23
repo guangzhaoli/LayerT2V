@@ -1,0 +1,11 @@
+# Mask VAE mode configuration
+# Inherits from base.yaml, overrides mask-specific settings
+#
+# mask_mode: "vae" - Encode masks through VAE (original implementation)
+# Masks are treated as grayscale images and encoded through the video VAE
+
+_base_: "base_train.yaml"
+
+
+mask_mode: "vae"
+run_name: "vae_origin"

@@ -1,0 +1,98 @@
+# Base training configuration for Layered Video Generation
+# Copyright 2024-2025 LayerT2V Authors. All rights reserved.
+#
+# This file contains common settings shared across all mask processing modes.
+# Use mask-specific configs (mask_*.yaml) that inherit from this base.
+
+# Model paths
+model_path: "/inspire/ssd/project/medical-image/250041225002/models/wan-2.1-1.3B"  # Path to Wan2.1 checkpoint directory
+vae_path: null                  # Path to VAE (default: model_path/Wan2.1_VAE.pth)
+t5_path: null                   # Path to T5 (default: model_path/models_t5_umt5-xxl-enc-bf16.pth)
+t5_tokenizer: "/inspire/ssd/project/medical-image/250041225002/models/wan-2.1-1.3B/google/umt5-xxl"
+
+# LoRA configuration
+# Recommended: rank 196, alpha = 2 * rank
+lora_rank: 196
+lora_alpha: 392
+use_all_linear: true  # Apply LoRA to all linear layers (recommended)
+
+# Layer position offset mode
+# Options: "none" (disabled), "fixed" (sinusoidal), "learnable" (default)
+layer_offset_mode: "learnable"
+
+# 4D RoPE configuration
+# Extends 3D RoPE (T, H, W) to 4D (L, T, H, W) for layer-aware position encoding
+# use_4d_rope: true = use 4D RoPE, false = use original 3D RoPE
+# rope_dim_ratios: dimension allocation (L, T, H, W) in real dims, must sum to head_dim (128)
+#   L=8 supports up to 8 layers (full video, background, 3 foregrounds, masks)
+#   Default: "8,42,40,38" (L=8, T=42, H=40, W=38)
+use_4d_rope: false
+rope_dim_ratios: "8,42,40,38"
+
+# Data configuration
+data_root: "/inspire/ssd/project/medical-image/250041225002/datasets/layert2v_old/layert2v_dataset"
+resolution_h: 384  # Video height
+resolution_w: 672  # Video width
+num_frames: 9     # Number of frames (should be 4n+1)
+fps: 8
+
+# Frame sampling strategy
+# Options: "uniform" (evenly spaced frames), "continuous" (random start + consecutive frames)
+# "uniform": takes evenly spaced frames across entire video (may skip frames, less natural motion)
+# "continuous": random start point + consecutive frames (preserves motion continuity, data augmentation)
+frame_sampling: "continuous"
+
+# Training configuration
+batch_size: 1                      # Batch size per GPU
+gradient_accumulation_steps: 4     # Effective batch = batch_size * num_gpus * grad_accum
+learning_rate: 1.0e-4              # LoRA can use higher LR than full fine-tuning
+weight_decay: 0.01
+max_grad_norm: 1.0
+
+# Schedule
+warmup_steps: 500
+max_steps: -1                   # Set to -1 to use num_epochs instead
+num_epochs: 30000
+
+# EMA (Exponential Moving Average)
+# EMA smooths parameter updates for more stable generation
+# ema_params = decay * ema_params + (1-decay) * current_params
+use_ema: true
+ema_decay: 0.9999  # Higher = smoother, 0.9999 is typical
+
+# Memory optimization
+gradient_checkpointing: true       # Reduces VRAM by ~30-50%, slightly slower training
+mixed_precision: "bf16"            # Options: "no", "fp16", "bf16"
+
+# Logging and saving
+log_steps: 10
+save_steps: 100
+validation_steps: 9999999999
+output_dir: "./outputs"
+logging_dir: "./logs"
+
+# Other
+seed: 42
+num_workers: 12
+resume_from: null  # Path to checkpoint to resume from
+
+# Layer separation constraints
+# These losses encourage proper separation of foreground/background layers
+# consistency_weight: Reconstruction consistency loss (full = fg + bg*(1-mask))
+#   - Forces physical compositing relationship between layers
+#   - Prevents model from predicting identical content for all layers
+#   - Suggested range: 0.1-0.5
+# mutual_exclusivity_weight: Mutual exclusivity loss (fg outside mask should be sparse)
+#   - Encourages foreground to be empty outside the mask region
+#   - Uses L1 norm to promote sparsity
+#   - Suggested range: 0.1-0.3
+consistency_weight: 0.0
+mutual_exclusivity_weight: 0.0
+
+# Wandb configuration
+# GPU 集群无法联网时使用离线模式，训练完成后在 CPU 集群同步
+# 同步命令: ./scripts/sync_wandb.sh --all ./logs
+use_wandb: true                    # Enable Wandb logging (in addition to TensorBoard)
+wandb_offline: true                # Offline mode for GPU clusters without internet
+wandb_project: "layert2v"          # Wandb project name
+wandb_entity: null                 # Wandb entity (team or username), null for personal

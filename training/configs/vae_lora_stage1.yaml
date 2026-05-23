@@ -1,0 +1,75 @@
+# VAE LoRA Stage 1 configuration (mask-only)
+# Copyright 2024-2025 LayerT2V Authors. All rights reserved.
+
+# =============================================================================
+# Data configuration
+# =============================================================================
+# data_root: "/path/to/dataset"
+jsonl_path: "/home/notebook/data/group/ckr/Data/layer/layert2v_backup0109/test_data/anno_1obj_w_prompt_tmp.jsonl"
+resolution_h: 384
+resolution_w: 672
+num_frames: 9
+fps: 8
+frame_sampling: "continuous"
+
+# =============================================================================
+# VAE configuration
+# =============================================================================
+vae_path: /home/notebook/data/group/ckr/ckpt/Wan2.1-T2V-1.3B/Wan2.1_VAE.pth
+lora_rank: 128
+lora_alpha: 128.0
+
+# Project-in (Wan-Alpha style)
+proj_hidden: 64
+proj_res_blocks: 2
+proj_use_attention: true
+proj_dropout: 0.0
+
+# =============================================================================
+# Loss configuration
+# =============================================================================
+rec_loss_type: "smoothl1"
+grad_weight: 0
+temporal_grad_weight: 0.0
+edge_weight: 1
+edge_scale: 2.0
+perceptual_weight: 1  # VGG16 perceptual loss (set 0 to disable)
+
+# =============================================================================
+# Training configuration
+# =============================================================================
+batch_size: 1
+gradient_accumulation_steps: 4
+learning_rate: 1.0e-4
+weight_decay: 0.01
+max_grad_norm: 1.0
+warmup_steps: 500
+max_steps: 9999999
+num_epochs: 100
+
+mixed_precision: "bf16"
+
+# =============================================================================
+# Logging and saving
+# =============================================================================
+log_steps: 10
+save_steps: 1000
+output_dir: "./outputs/mask_vae_lora"
+logging_dir: "./logs/mask_vae_lora"
+run_name: "mask_vae_lora_stage1"
+
+# =============================================================================
+# Other
+# =============================================================================
+seed: 42
+num_workers: 4
+resume_from: null
+
+# =============================================================================
+# Wandb configuration
+# =============================================================================
+# GPU 集群无法联网时使用离线模式，训练完成后在 CPU 集群同步
+use_wandb: true                    # Enable Wandb logging
+wandb_offline: true                # Offline mode for GPU clusters without internet
+wandb_project: "layert2v"          # Wandb project name
+wandb_entity: null                 # Wandb entity (team or username), null for personal
