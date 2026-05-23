@@ -171,15 +171,14 @@ LayerT2V
 If you find LayerT2V useful for your research, please cite our paper:
 
 ```bibtex
-@misc{li2025layert2v,
-  title = {LayerT2V: A Unified Multi-Layer Video Generation Framework},
-  author = {Li, Guangzhao and Cen, Kangrui and Zhao, Baixuan and Xin, Yi and Luo, Siqi and Zhai, Guangtao and Zhang, Lei and Liu, Xiaohong},
-  year = {2025},
-  eprint = {2508.04228},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.CV},
-  doi = {10.48550/arXiv.2508.04228},
-  url = {https://arxiv.org/abs/2508.04228}
+@misc{li2026layert2vunifiedmultilayervideo,
+      title={LayerT2V: A Unified Multi-Layer Video Generation Framework}, 
+      author={Guangzhao Li and Kangrui Cen and Baixuan Zhao and Yi Xin and Siqi Luo and Guangtao Zhai and Lei Zhang and Xiaohong Liu},
+      year={2026},
+      eprint={2508.04228},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2508.04228}, 
 }
 ```
 
