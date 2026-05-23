@@ -6,16 +6,15 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2508.04228-b31b1b.svg)](https://arxiv.org/abs/2508.04228)
 [![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://layert2v.github.io/)
-[![Paper](https://img.shields.io/badge/Paper-Accepted-brightgreen.svg)](https://arxiv.org/abs/2508.04228)
-[![Code](https://img.shields.io/badge/Code-Coming%20Soon-orange.svg)](#release-status)
-[![Checkpoints](https://img.shields.io/badge/Checkpoints-Coming%20Soon-orange.svg)](#release-status)
-[![Dataset](https://img.shields.io/badge/Dataset-Coming%20Soon-orange.svg)](#release-status)
+[![Paper](https://img.shields.io/badge/Paper-ICML-brightgreen.svg)](https://arxiv.org/abs/2508.04228)
 
 </div>
 
 This is the official repository for **LayerT2V: A Unified Multi-Layer Video Generation Framework**.
 
-Our paper has been accepted. We are preparing the public release of the code, pretrained checkpoints, and dataset resources.
+<div align="center">
+  <img src="assets/pipe.png" alt="LayerT2V pipeline" width="95%">
+</div>
 
 ## News
 
@@ -42,7 +41,7 @@ We also introduce **VidLayer**, a large-scale dataset for multi-layer video gene
 
 | Component | Status |
 | --- | --- |
-| Paper | Accepted |
+| Paper | ICML |
 | Project page | Available |
 | Source code | Coming soon |
 | Pretrained checkpoints | Coming soon |
