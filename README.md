@@ -79,7 +79,7 @@ Text-to-video generation has advanced rapidly, but existing methods typically ou
 
 ## 🔥 News
 
-- **[2026.07]** We have released [VidLayer Dataset](https://huggingface.co/datasets/kr-cen/VidLayer) on huggingface.
+- **[2026.07]** We released the [VidLayer dataset](https://huggingface.co/datasets/kr-cen/VidLayer) on Hugging Face.
 - **[2026.05]** LayerT2V is accepted to ICML.
 - **[2026.02]** We updated the arXiv version of LayerT2V.
 - **[2025.08]** We released the LayerT2V preprint on arXiv.
@@ -121,7 +121,7 @@ pip install -r requirements_training.txt
 
 LayerT2V builds on Wan2.1 video generation components. Prepare the required Wan2.1 base checkpoint locally and pass its path through `--model_path`.
 
-Pretrained LayerT2V checkpoints and VidLayer dataset release links will be added after release preparation is complete.
+The VidLayer dataset is available on [Hugging Face](https://huggingface.co/datasets/kr-cen/VidLayer). Pretrained LayerT2V checkpoints will be added after release preparation is complete.
 
 ---
 
