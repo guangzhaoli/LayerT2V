@@ -79,6 +79,7 @@ Text-to-video generation has advanced rapidly, but existing methods typically ou
 
 ## 🔥 News
 
+- **[2026.07]** We have released [VidLayer Dataset](https://huggingface.co/datasets/kr-cen/VidLayer) on huggingface.
 - **[2026.05]** LayerT2V is accepted to ICML.
 - **[2026.02]** We updated the arXiv version of LayerT2V.
 - **[2025.08]** We released the LayerT2V preprint on arXiv.
@@ -91,7 +92,7 @@ Text-to-video generation has advanced rapidly, but existing methods typically ou
 - [x] Release the project page.
 - [x] Release the arXiv paper.
 - [ ] Release pretrained LayerT2V checkpoints.
-- [ ] Release VidLayer dataset resources.
+- [x] Release VidLayer dataset resources.
 - [ ] Add detailed evaluation scripts and instructions.
 
 ---
